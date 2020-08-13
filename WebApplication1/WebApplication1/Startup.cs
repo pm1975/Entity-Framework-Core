@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApplication1.Database;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace WebApplication1
 {
@@ -20,13 +21,14 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<WebApplication1DbContext>(option => option.UseSqlServer(""));
+            //services.AddDbContext<WebApplication1DbContext>(option => option.UseSqlServer("Server=.;Database=WebApplication1Database;Trusted_Connection=True;"));
+            services.AddDbContext<WebApplication1DbContext>(option => option.UseSqlServer(@"Server=informatyk3\sqlexpress;Database=WebApplication1Database;User Id=sa;Password=kijkolki;"));
 
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -51,6 +53,10 @@ namespace WebApplication1
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var database = serviceProvider.GetService<WebApplication1DbContext>();
+
+            database.Database.EnsureCreated();
         }
     }
 }
