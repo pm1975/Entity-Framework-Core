@@ -28,7 +28,8 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            var database = mServiceProvider.GetService(typeof(WebApplication1DbContext)) as WebApplication1DbContext;
+            #region DbContextPrzykłady
+            /*var database = mServiceProvider.GetService(typeof(WebApplication1DbContext)) as WebApplication1DbContext;
             var settingsTable = database.Settings;
 
             #region Dodajemy nowe ustawienia tła
@@ -49,7 +50,8 @@ namespace WebApplication1.Controllers
             var backgroundSetting = settingsTable.First();
             backgroundSetting.Value = "Red";
             #endregion
-            database.SaveChanges();
+            database.SaveChanges();*/
+            #endregion
 
             return View();
         }
