@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Schema;
 using WebApplication1.Database;
 using WebApplication1.Models;
 
@@ -13,10 +11,18 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     {
         private readonly IServiceProvider mServiceProvider;
+        private readonly UserManager<ApplicationUser> mUserManager;
+        private readonly SignInManager<ApplicationUser> mSingInManager;
 
-        public HomeController(IServiceProvider serviceProvider)
+        public HomeController(IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             mServiceProvider = serviceProvider;
+            mUserManager = userManager;
+            mSingInManager = signInManager;
+
+            var user = userManager.FindByNameAsync("login").Result;
+
+            mSingInManager.SignInAsync(user, false, "haslo123");
         }
 
         //private readonly ILogger<HomeController> _logger;
@@ -51,6 +57,25 @@ namespace WebApplication1.Controllers
             backgroundSetting.Value = "Red";
             #endregion
             database.SaveChanges();*/
+            #endregion
+
+            #region CreatingUser
+
+            //var user = new ApplicationUser
+            //{
+            //    FirstName = "Piotr",
+            //    LastName = "Mierniczak",
+            //    UserName = "KursProgramowania1"
+            //};
+
+            //var result = mUserManager.CreateAsync(user, "haslo123").Result;
+            //if (result.Succeeded)
+            //{
+            //    return View();
+            //}
+
+            //return Ok("Nie udało się stworzyć użytkownika");
+
             #endregion
 
             return View();
