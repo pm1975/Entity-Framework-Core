@@ -11,12 +11,17 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     {
         private readonly IServiceProvider mServiceProvider;
+        private readonly ISettingsRepository mSettingsRepository;
         private readonly UserManager<ApplicationUser> mUserManager;
         private readonly SignInManager<ApplicationUser> mSingInManager;
 
-        public HomeController(IServiceProvider serviceProvider, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public HomeController(IServiceProvider serviceProvider, 
+            ISettingsRepository settingRepository,
+            UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager)
         {
             mServiceProvider = serviceProvider;
+            mSettingsRepository = settingRepository;
             mUserManager = userManager;
             mSingInManager = signInManager;
 
@@ -78,17 +83,30 @@ namespace WebApplication1.Controllers
 
             #endregion
 
-            var database = mServiceProvider.GetService(typeof(WebApplication1DbContext)) as WebApplication1DbContext;
-            var repository = new SettingsRepository(database);
-            repository.UpdateSetting(new Setting
+            #region 10EntityRepositoryCoToJest
+            //var database = mServiceProvider.GetService(typeof(WebApplication1DbContext)) as WebApplication1DbContext;
+            //var repository = new SettingsRepository(database);
+            //repository.UpdateSetting(new Setting
+            //{
+            //    Name = "TextColor",
+            //    Value = "Black"
+            //});
+
+            //var databaseSettings = repository.GetAllSettings();
+
+            //return Ok(databaseSettings);
+            #endregion
+
+            mSettingsRepository.UpdateSetting(new Setting
             {
                 Name = "TextColor",
-                Value = "Black"
+                Value = "Yellow"
             });
 
-            var databaseSettings = repository.GetAllSettings();
+            var databaseSettings = mSettingsRepository.GetAll();
 
             return Ok(databaseSettings);
+
         }
 
         public IActionResult Privacy()

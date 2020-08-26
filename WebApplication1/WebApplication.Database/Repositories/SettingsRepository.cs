@@ -4,34 +4,16 @@ using System.Linq;
 
 namespace WebApplication1.Database
 {
-    public class SettingsRepository
+    public class SettingsRepository : BaseRepository<Setting>, ISettingsRepository
     {
-        private WebApplication1DbContext mDbContext;
+        protected override DbSet<Setting> DbSet => mDbContext.Settings;
 
-        private DbSet<Setting> DbSet => mDbContext.Settings;
+        public SettingsRepository(WebApplication1DbContext dbContext) : base(dbContext) { }
 
-        public SettingsRepository(WebApplication1DbContext dbContext)
-        {
-            mDbContext = dbContext;
-        }
-
-        public List<Setting> GetAllSettings()
-        {
-            var list = new List<Setting>();
-
-            var settings = DbSet;
-
-            foreach (var setting in settings)
-            {
-                list.Add(setting);
-            }
-
-            return list;
-        }
 
         public void UpdateSetting(Setting setting)
         {
-            var foundSetting = DbSet.Where(x => x.Id == setting.Id).FirstOrDefault();
+            var foundSetting = DbSet.Where(x => x.Name == setting.Name).FirstOrDefault();
             if (foundSetting == null)
             {
                 DbSet.Add(setting);
@@ -42,11 +24,6 @@ namespace WebApplication1.Database
             foundSetting.Name = setting.Name;
             foundSetting.Value = setting.Value;
             SaveChanges();
-        }
-
-        public void SaveChanges()
-        {
-            mDbContext.SaveChanges();
         }
     }
 }

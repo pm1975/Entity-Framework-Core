@@ -25,6 +25,8 @@ namespace WebApplication1
             //services.AddDbContext<WebApplication1DbContext>(option => option.UseSqlServer("Server=.;Database=WebApplication1Database;Trusted_Connection=True;"));
             services.AddDbContext<WebApplication1DbContext>(option => option.UseSqlServer(@"Server=informatyk3\sqlexpress;Database=WebApplication1Database;User Id=sa;Password=kijkolki;"));
 
+            services.AddScoped<ISettingsRepository, SettingsRepository>();       
+
             services.AddControllersWithViews();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
