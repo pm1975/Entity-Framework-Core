@@ -13,16 +13,19 @@ namespace WebApplication1.Controllers
         private readonly IServiceProvider mServiceProvider;
         private readonly ISettingsRepository mSettingsRepository;
         private readonly UserManager<ApplicationUser> mUserManager;
+        private readonly SettingMapper mSettingMapper;
         private readonly SignInManager<ApplicationUser> mSingInManager;
 
-        public HomeController(IServiceProvider serviceProvider, 
+        public HomeController(IServiceProvider serviceProvider,
             ISettingsRepository settingRepository,
-            UserManager<ApplicationUser> userManager, 
+            UserManager<ApplicationUser> userManager,
+            SettingMapper settingMapper,
             SignInManager<ApplicationUser> signInManager)
         {
             mServiceProvider = serviceProvider;
             mSettingsRepository = settingRepository;
             mUserManager = userManager;
+            mSettingMapper = settingMapper;
             mSingInManager = signInManager;
 
             var user = userManager.FindByNameAsync("login").Result;
@@ -97,11 +100,25 @@ namespace WebApplication1.Controllers
             //return Ok(databaseSettings);
             #endregion
 
-            mSettingsRepository.UpdateSetting(new Setting
-            {
-                Name = "TextColor",
-                Value = "Yellow"
-            });
+            #region Update
+            //mSettingsRepository.UpdateSetting(new Setting
+            //{
+            //    Name = "BackgroundColor",
+            //    Value = "Yellow"
+            //});
+
+            //var databaseSettings = mSettingsRepository.GetAll();
+            #endregion
+
+            var setting = mSettingsRepository.GetSettingByName("BackgroundColor");
+
+            var dataModelSetting = mSettingMapper.Map(setting);
+
+            dataModelSetting.Value = "Yellow";
+
+            var newSetting = mSettingMapper.Map(dataModelSetting);
+
+            mSettingsRepository.SaveChanges();
 
             var databaseSettings = mSettingsRepository.GetAll();
 

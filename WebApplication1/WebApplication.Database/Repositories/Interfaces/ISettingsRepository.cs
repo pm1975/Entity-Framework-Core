@@ -6,6 +6,7 @@ namespace WebApplication1.Database
     {
         List<Setting> GetAll();
         void UpdateSetting(Setting setting);
+        Setting GetSettingByName(string name);
         void SaveChanges();
     }
 }

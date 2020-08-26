@@ -25,5 +25,12 @@ namespace WebApplication1.Database
             foundSetting.Value = setting.Value;
             SaveChanges();
         }
+
+        public Setting GetSettingByName(string name)
+        {
+            var foundSetting = DbSet.Where(x => x.Name == name).FirstOrDefault();
+
+            return foundSetting;
+        }
     }
 }
