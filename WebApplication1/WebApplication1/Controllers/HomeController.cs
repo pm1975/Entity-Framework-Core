@@ -78,7 +78,17 @@ namespace WebApplication1.Controllers
 
             #endregion
 
-            return View();
+            var database = mServiceProvider.GetService(typeof(WebApplication1DbContext)) as WebApplication1DbContext;
+            var repository = new SettingsRepository(database);
+            repository.UpdateSetting(new Setting
+            {
+                Name = "TextColor",
+                Value = "Black"
+            });
+
+            var databaseSettings = repository.GetAllSettings();
+
+            return Ok(databaseSettings);
         }
 
         public IActionResult Privacy()
