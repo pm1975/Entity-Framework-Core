@@ -72,7 +72,8 @@ namespace WebApplication1
 
             var database = serviceProvider.GetService<WebApplication1DbContext>();
 
-            database.Database.EnsureCreated();
+            //database.Database.EnsureCreated();
+            database.Database.Migrate();
         }
     }
 }

@@ -110,15 +110,15 @@ namespace WebApplication1.Controllers
             //var databaseSettings = mSettingsRepository.GetAll();
             #endregion
 
-            var setting = mSettingsRepository.GetSettingByName("BackgroundColor");
+            //var setting = mSettingsRepository.GetSettingByName("BackgroundColor");
 
-            var dataModelSetting = mSettingMapper.Map(setting);
+            //var dataModelSetting = mSettingMapper.Map(setting);
 
-            dataModelSetting.Value = "Yellow";
+            //dataModelSetting.Value = "Yellow";
 
-            var newSetting = mSettingMapper.Map(dataModelSetting);
+            //var newSetting = mSettingMapper.Map(dataModelSetting);
 
-            mSettingsRepository.SaveChanges();
+            //mSettingsRepository.SaveChanges();
 
             var databaseSettings = mSettingsRepository.GetAll();
 
