@@ -1,37 +1,48 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Lekadex.Models;
 
 namespace Lekadex.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string filterString)
+        {
+            if (string.IsNullOrEmpty(filterString))
+            {
+                return View(TestDatabasePleaseDelete.Doctors);
+            }
+
+            return View(TestDatabasePleaseDelete.Doctors
+                .Where(x => x.Name.Contains(filterString)).ToList());
+        }
+
+        public IActionResult Add()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Add(DoctorViewModel doctorVm)
         {
-            return View();
+            TestDatabasePleaseDelete.Doctors.Add(doctorVm);
+
+            //wrócimy z powrotem do Index
+            return RedirectToAction("Index");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult View(int indexOfDoctor)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return RedirectToAction("Index", "Prescription", new { indexOfDoctor = indexOfDoctor });
+        }
+
+        public IActionResult Delete(int indexOfDoctor)
+        {
+            return View(TestDatabasePleaseDelete.Doctors);
         }
     }
 }
