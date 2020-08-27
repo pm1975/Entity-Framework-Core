@@ -8,5 +8,6 @@ namespace WebApplication1.Database
         void UpdateSetting(Setting setting);
         Setting GetSettingByName(string name);
         void SaveChanges();
+        void DoSomething();
     }
 }

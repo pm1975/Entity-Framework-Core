@@ -66,7 +66,6 @@ namespace WebApplication1.Controllers
             #endregion
             database.SaveChanges();*/
             #endregion
-
             #region CreatingUser
 
             //var user = new ApplicationUser
@@ -85,7 +84,6 @@ namespace WebApplication1.Controllers
             //return Ok("Nie udało się stworzyć użytkownika");
 
             #endregion
-
             #region 10EntityRepositoryCoToJest
             //var database = mServiceProvider.GetService(typeof(WebApplication1DbContext)) as WebApplication1DbContext;
             //var repository = new SettingsRepository(database);
@@ -99,7 +97,6 @@ namespace WebApplication1.Controllers
 
             //return Ok(databaseSettings);
             #endregion
-
             #region Update
             //mSettingsRepository.UpdateSetting(new Setting
             //{
@@ -109,21 +106,49 @@ namespace WebApplication1.Controllers
 
             //var databaseSettings = mSettingsRepository.GetAll();
             #endregion
-
+            #region 13 Mapping
             //var setting = mSettingsRepository.GetSettingByName("BackgroundColor");
-
             //var dataModelSetting = mSettingMapper.Map(setting);
-
             //dataModelSetting.Value = "Yellow";
-
             //var newSetting = mSettingMapper.Map(dataModelSetting);
-
             //mSettingsRepository.SaveChanges();
+            //var databaseSettings = mSettingsRepository.GetAll();
+            //return Ok(databaseSettings);
+            #endregion
+            #region 15 LINQ do 3:45
+            var database = mServiceProvider.GetService(typeof(WebApplication1DbContext)) as WebApplication1DbContext;
+            var settingsTable = database.Settings;
+            var setting1 = new Setting
+            {
+                Name = "Background",
+                Value = "Black"
+            };
+            var setting2 = new Setting
+            {
+                Name = "Foreground",
+                Value = "Yellow"
+            };
+            var setting3 = new Setting
+            {
+                Name = "TextColor",
+                Value = "Red"
+            };
+            var setting4 = new Setting
+            {
+                Name = "RAting",
+                Value = "5"
+            };
+            var setting5 = new Setting
+            {
+                Name = "DarkMode",
+                Value = "True"
+            };
 
-            var databaseSettings = mSettingsRepository.GetAll();
+            settingsTable.AddRange(setting1, setting2, setting3, setting4, setting5);
 
-            return Ok(databaseSettings);
-
+            mSettingsRepository.SaveChanges();
+            #endregion
+            return View();
         }
 
         public IActionResult Privacy()
