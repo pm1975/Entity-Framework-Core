@@ -36,6 +36,7 @@ namespace WebApplication1.Database
         public void DoSomething()
         {
             //LINQ
+
             //Where
             var foundSetting = DbSet.Where(x => x.Name == "Background").First();
             foundSetting = DbSet.Where(x => x.Id > 3 && x.Id < 6).First();
