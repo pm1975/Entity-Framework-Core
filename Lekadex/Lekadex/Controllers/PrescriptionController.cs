@@ -28,6 +28,21 @@ namespace Lekadex.Controllers
             });
         }
 
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(PrescriptionViewModel prescriptionVm)
+        {
+            TestDatabasePleaseDelete.Doctors.ElementAt(IndexOfDoctor)
+                .Prescriptions.Add(prescriptionVm);
+
+            //wrócimy z powrotem do Index
+            return RedirectToAction("Index");
+        }
+
 
         public IActionResult View(int indexOfPrescription)
         {
