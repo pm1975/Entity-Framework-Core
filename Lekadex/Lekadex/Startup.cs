@@ -1,3 +1,5 @@
+using Lekadex.Core;
+using Lekadex.Core.Mappers;
 using Lekadex.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +31,10 @@ namespace Lekadex
             services.AddTransient<IDoctorRepository, DoctorRepository>();
             services.AddTransient<IPrescriptionRepository, PrescriptionRepository>();
             services.AddTransient<IMedicineRepository, MedicineRepository>();
+
+            services.AddTransient<DtoMapper>();
+            services.AddTransient<ViewModelMapper>();
+            services.AddTransient<IDoctorManager, DoctorManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
