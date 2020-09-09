@@ -7,8 +7,13 @@
 <a asp-controller="Prescription" asp-action="Add" class="btn btn-success">Go to add</a>
 
 <div>
-    Doctor's data:
-    name: @Model.Name
+    Doctor's data: <br />
+    Id: @Model.Id <br />
+    FirstName: @Model.FirstName <br />
+    LastName: @Model.LastName <br />
+    PhoneNumber: @Model.PhoneNumber <br />
+    WorkYears: @Model.WorkYears <br />
+    IsAbleToMakePrescriptions: @Model.IsAbleToMakePrescriptions <br />
 </div>
 
 <form asp-controller="Prescription" asp-action="Index">
@@ -21,10 +26,13 @@
         <thead>
             <tr>
                 <th scope="col">
-                    #
+                    Id
                 </th>
                 <th scope="col">
                     Name
+                </th>
+                <th scope="col">
+                    CreatedDate
                 </th>
                 <th scope="col">
                     Actions
@@ -35,14 +43,15 @@
             @foreach (var prescription in Model.Prescriptions)
             {
                 <tr>
-                    <th scope="row">@(Model.Prescriptions.IndexOf(prescription) + 1)</th>
+                    <th scope="row">@prescription.Id</th>
                     <td>@prescription.Name</td>
+                    <td>@prescription.CreatedDate</td>
                     <td>
                         <a asp-area="" asp-controller="Prescription" asp-action="View"
-                           asp-route-indexOfPrescription="@Model.Prescriptions.IndexOf(prescription)">View</a> 
+                           asp-route-prescriptionId="@prescription.Id">View</a> 
                         | 
                         <a asp-area="" asp-controller="Prescription" asp-action="Delete"
-                           asp-route-indexOfPrescription="@Model.Prescriptions.IndexOf(prescription)">Delete</a>
+                           asp-route-prescriptionId="@prescription.Id">Delete</a>
                     </td>
                 </tr>
             }

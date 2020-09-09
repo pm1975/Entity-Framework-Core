@@ -5,8 +5,13 @@
 }
 
 <form asp-controller="Medicine" asp-action="Add">
-    <p>Name: </p>
-    <input type="text" name="Name" />
+    Name: <input type="text" name="Name" /> <br />
+    CompanyName: <input type="text" name="CompanyName" /> <br />
+    ActiveSubstance: <input type="text" name="ActiveSubstance" /> <br />
+    Weight: <input type="number" name="Weight" /> <br />
+    Price: <input type="number" name="Price" /> <br />
+    Amount: <input type="number" name="Amount" /> <br />
+    ExpirationDate: <input type="date" name="ExpirationDate" /> <br />
     <button type="submit" class="btn btn-success">Add</button>
 </form>
 

@@ -14,7 +14,7 @@ namespace Lekadex.Database
 
         public IEnumerable<Doctor> GetAllDoctors()
         {
-            return DbSet.Include(x => x.Prescriptions).ThenInclude(x => x.Medicines).Select(x => x);
+            return DbSet/*.Include(x => x.Prescriptions).ThenInclude(x => x.Medicines)*/.Select(x => x);
         }
 
     }

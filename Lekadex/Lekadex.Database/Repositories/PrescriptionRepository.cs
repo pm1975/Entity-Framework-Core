@@ -14,7 +14,7 @@ namespace Lekadex.Database
 
         public IEnumerable<Prescription> GetAllPrescriptions()
         {
-            return DbSet.Include(x => x.Medicines).Select(x => x);
+            return DbSet/*.Include(x => x.Medicines)*/.Select(x => x);
         }
 
     }

@@ -10,9 +10,9 @@ namespace Lekadex.Core
         bool DeleteDoctor(DoctorDto doctor);
         bool DeleteMedicine(MedicineDto medicine);
         bool DeletePrescription(PrescriptionDto prescription);
-        IEnumerable<DoctorDto> GetAllDoctors(string filterString);
-        IEnumerable<MedicineDto> GetAllMedicineForAPrescription(int prescriptionId, string filterString);
-        IEnumerable<PrescriptionDto> GetAllPrescriptionForADoctor(int doctorId, string filterString);
+        List<DoctorDto> GetAllDoctors(string filterString);
+        List<MedicineDto> GetAllMedicineForAPrescription(int prescriptionId, string filterString);
+        List<PrescriptionDto> GetAllPrescriptionForADoctor(int doctorId, string filterString);
 
     }
 }

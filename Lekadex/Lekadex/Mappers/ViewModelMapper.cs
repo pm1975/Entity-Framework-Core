@@ -24,14 +24,14 @@ namespace Lekadex.Core.Mappers
         public MedicineViewModel Map(MedicineDto medicine) 
             => mMapper.Map<MedicineViewModel>(medicine);
 
-        public IEnumerable<MedicineViewModel> Map(IEnumerable<MedicineDto> medicines)
-            => mMapper.Map<IEnumerable<MedicineViewModel>>(medicines);
+        public List<MedicineViewModel> Map(List<MedicineDto> medicines)
+            => mMapper.Map<List<MedicineViewModel>>(medicines);
 
         public MedicineDto Map(MedicineViewModel medicine)
             => mMapper.Map<MedicineDto>(medicine);
 
-        public IEnumerable<MedicineDto> Map(IEnumerable<MedicineViewModel> medicines)
-            => mMapper.Map<IEnumerable<MedicineDto>>(medicines);
+        public List<MedicineDto> Map(List<MedicineViewModel> medicines)
+            => mMapper.Map<List<MedicineDto>>(medicines);
 
         #endregion
 
@@ -39,14 +39,14 @@ namespace Lekadex.Core.Mappers
         public PrescriptionViewModel Map(PrescriptionDto prescription)
             => mMapper.Map<PrescriptionViewModel>(prescription);
 
-        public IEnumerable<PrescriptionViewModel> Map(IEnumerable<PrescriptionDto> prescriptions)
-            => mMapper.Map<IEnumerable<PrescriptionViewModel>>(prescriptions);
+        public List<PrescriptionViewModel> Map(List<PrescriptionDto> prescriptions)
+            => mMapper.Map<List<PrescriptionViewModel>>(prescriptions);
 
         public PrescriptionDto Map(PrescriptionViewModel prescription)
             => mMapper.Map<PrescriptionDto>(prescription);
 
-        public IEnumerable<PrescriptionDto> Map(IEnumerable<PrescriptionViewModel> prescriptions)
-            => mMapper.Map<IEnumerable<PrescriptionDto>>(prescriptions);
+        public List<PrescriptionDto> Map(List<PrescriptionViewModel> prescriptions)
+            => mMapper.Map<List<PrescriptionDto>>(prescriptions);
 
         #endregion
 
@@ -54,14 +54,14 @@ namespace Lekadex.Core.Mappers
         public DoctorViewModel Map(DoctorDto doctor)
             => mMapper.Map<DoctorViewModel>(doctor);
 
-        public IEnumerable<DoctorViewModel> Map(IEnumerable<DoctorDto> doctors)
-            => mMapper.Map<IEnumerable<DoctorViewModel>>(doctors);
+        public List<DoctorViewModel> Map(List<DoctorDto> doctors)
+            => mMapper.Map<List<DoctorViewModel>>(doctors);
 
         public DoctorDto Map(DoctorViewModel doctor)
             => mMapper.Map<DoctorDto>(doctor);
 
-        public IEnumerable<DoctorDto> Map(IEnumerable<DoctorViewModel> doctors)
-            => mMapper.Map<IEnumerable<DoctorDto>>(doctors);
+        public List<DoctorDto> Map(List<DoctorViewModel> doctors)
+            => mMapper.Map<List<DoctorDto>>(doctors);
 
         #endregion
     }

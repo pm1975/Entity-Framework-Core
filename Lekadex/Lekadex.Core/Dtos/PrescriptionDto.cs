@@ -11,6 +11,6 @@ namespace Lekadex.Core
 
         public DoctorDto Doctor { get; set; }
 
-        public List<MedicineDto> Medicines { get; set; }
+        public IEnumerable<MedicineDto> Medicines { get; set; }
     }
 }

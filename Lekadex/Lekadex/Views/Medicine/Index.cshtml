@@ -7,8 +7,10 @@
 <a asp-controller="Medicine" asp-action="Add" class="btn btn-success">Go to add</a>
 
 <div>
-    Prescription's data:
-    name: @Model.Name
+    Prescription's data: <br />
+    Id: @Model.Id  <br />
+    Name: @Model.Name <br />
+    CreatedDate: @Model.CreatedDate  <br />
 </div>
 
 <form asp-controller="Medicine" asp-action="Index">
@@ -21,10 +23,31 @@
         <thead>
             <tr>
                 <th scope="col">
-                    #
+                    Id
                 </th>
                 <th scope="col">
                     Name
+                </th>
+                <th scope="col">
+                    CompanyName 
+                </th>
+                <th scope="col">
+                    ActiveSubstance
+                </th>
+                <th scope="col">
+                    Weight
+                </th>
+                <th scope="col">
+                    Price
+                </th>
+                <th scope="col">
+                    Amount
+                </th>
+                <th scope="col">
+                    PriceInTotal
+                </th>
+                <th scope="col">
+                    ExpirationDate
                 </th>
                 <th scope="col">
                     Actions
@@ -35,11 +58,18 @@
             @foreach (var medicine in Model.Medicines)
             {
                 <tr>
-                    <th scope="row">@(Model.Medicines.IndexOf(medicine) + 1)</th>
+                    <th scope="row">@medicine.Id)</th>
                     <td>@medicine.Name</td>
+                    <td>@medicine.CompanyName</td>
+                    <td>@medicine.ActiveSubstance</td>
+                    <td>@medicine.Weight</td>
+                    <td>@medicine.Price</td>
+                    <td>@medicine.Amount</td>
+                    <td>@medicine.PriceInTotal</td>
+                    <td>@medicine.ExpirationDate</td>
                     <td>
                         <a asp-area="" asp-controller="Medicine" asp-action="Delete" 
-                           asp-route-indexOfMedicine="@Model.Medicines.IndexOf(medicine)">Delete</a>
+                           asp-route-medicineId="@medicine.Id">Delete</a>
                     </td>
                 </tr>
             }

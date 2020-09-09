@@ -16,6 +16,6 @@ namespace Lekadex.Database
         public bool IsAbleToMakePrescriptions { get; set; }
 
         [NotMapped] //nie tworzy z tego kolumny
-        public virtual List<Prescription> Prescriptions { get; set; }
+        public virtual IEnumerable<Prescription> Prescriptions { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Lekadex.Database
 {
-    public abstract class BaseRepository<Entity> where Entity : BaseEntity
+    public abstract class BaseRepository<Entity> : IRepository<Entity> where Entity : BaseEntity
     {
         protected LekadexAppDbContext mDbContext;
         protected abstract DbSet<Entity> DbSet { get; }

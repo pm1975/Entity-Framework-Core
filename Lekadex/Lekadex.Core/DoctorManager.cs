@@ -24,46 +24,47 @@ namespace Lekadex.Core
             mDtoMapper = dtoMapper;
         }
 
-        public IEnumerable<DoctorDto> GetAllDoctors(string filterString)
+        public List<DoctorDto> GetAllDoctors(string filterString)
         {
-            var doctorEntities = mDoctorRepository.GetAllDoctors();
+            var doctorEntities = mDoctorRepository.GetAllDoctors().ToList();
 
             if (!string.IsNullOrEmpty(filterString))
             {
                 doctorEntities = doctorEntities
-                    .Where(x => x.FirstName.Contains(filterString) || x.LastName.Contains(filterString));
+                    .Where(x => x.FirstName.Contains(filterString) || 
+                           x.LastName.Contains(filterString)).ToList();
             }
 
             return mDtoMapper.Map(doctorEntities);
         }
 
-        public IEnumerable<PrescriptionDto> GetAllPrescriptionForADoctor
+        public List<PrescriptionDto> GetAllPrescriptionForADoctor
             (int doctorId, string filterString)
         {
             var prescriptionEntities = mPrescriptionRepository.GetAllPrescriptions()
-                .Where(x => x.DoctorId == doctorId);
+                .Where(x => x.DoctorId == doctorId).ToList();
 
             if (!string.IsNullOrEmpty(filterString))
             {
                 prescriptionEntities = prescriptionEntities
-                    .Where(x => x.Name.Contains(filterString));
+                    .Where(x => x.Name.Contains(filterString)).ToList();
             }
 
             return mDtoMapper.Map(prescriptionEntities);
         }
 
-        public IEnumerable<MedicineDto> GetAllMedicineForAPrescription
+        public List<MedicineDto> GetAllMedicineForAPrescription
             (int prescriptionId, string filterString)
         {
             var medicineEntities = mMedicineRepository.GetAllMedicines()
-                .Where(x => x.PrescriptionId == prescriptionId);
+                .Where(x => x.PrescriptionId == prescriptionId).ToList();
 
             if (!string.IsNullOrEmpty(filterString))
             {
                 medicineEntities = medicineEntities
                     .Where(x => x.ActiveSubstance.Contains(filterString) ||
                                 x.Name.Contains(filterString) ||
-                                x.CompanyName.Contains(filterString));
+                                x.CompanyName.Contains(filterString)).ToList();
             }
 
             return mDtoMapper.Map(medicineEntities);

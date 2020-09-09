@@ -10,8 +10,6 @@ namespace Lekadex.Controllers
         private readonly IDoctorManager mDoctorManager;
         private readonly ViewModelMapper mViewModelMapper;
 
-        private int DoctorId { get; set; }
-        private int PrescriptionId { get; set; }
         public MedicineController(IDoctorManager doctorManager, ViewModelMapper viewModelMapper)
         {
             mDoctorManager = doctorManager;
@@ -20,29 +18,16 @@ namespace Lekadex.Controllers
 
         public IActionResult Index(int doctorId, int prescriptionId, string filterString)
         {
-            DoctorId = doctorId;
-            PrescriptionId = prescriptionId;
-
+            TempData["DoctorId"] = doctorId;
+            TempData["PrescriptionId"] = prescriptionId;
             var prescriptionDtos = mDoctorManager.GetAllPrescriptionForADoctor(doctorId, null)
                                                  .FirstOrDefault(x => x.Id == prescriptionId);
             var medicineDtos = mDoctorManager.GetAllMedicineForAPrescription(prescriptionId, filterString);
 
-            var viewModels = mViewModelMapper.Map(prescriptionDtos);
+            var prescriptionViewModel = mViewModelMapper.Map(prescriptionDtos);
+            prescriptionViewModel.Medicines = mViewModelMapper.Map(medicineDtos);
 
-            if (string.IsNullOrEmpty(filterString))
-            {
-                return View(TestDatabasePleaseDelete.Doctors.ElementAt(doctorId)
-                .Prescriptions.ElementAt(prescriptionId));
-            }
-
-            return View(new PrescriptionViewModel
-            {
-                Name = TestDatabasePleaseDelete.Doctors.ElementAt(doctorId)
-                    .Prescriptions.ElementAt(prescriptionId).Name,
-                Medicines = TestDatabasePleaseDelete.Doctors.ElementAt(doctorId)
-                    .Prescriptions.ElementAt(prescriptionId).Medicines
-                    .Where(x => x.Name.Contains(filterString)).ToList()
-            });
+            return View(prescriptionViewModel);
         }
 
         public IActionResult Add()
@@ -53,17 +38,26 @@ namespace Lekadex.Controllers
         [HttpPost]
         public IActionResult Add(MedicineViewModel medicineVm)
         {
-            TestDatabasePleaseDelete.Doctors.ElementAt(DoctorId)
-                .Prescriptions.ElementAt(PrescriptionId)
-                .Medicines.Add(medicineVm);
+            var dto = mViewModelMapper.Map(medicineVm);
 
-            //wrócimy z powrotem do Index
-            return RedirectToAction("Index");
+            mDoctorManager.AddNewMedicine(dto, int.Parse(TempData["PrescriptionId"].ToString()));
+
+            return RedirectToAction("Index", new {
+                doctorId = int.Parse(TempData["DoctorId"].ToString()),
+                prescriptionId = int.Parse(TempData["PrescriptionId"].ToString()) 
+            });
         }
 
-        public IActionResult Delete(int indexOfMedicine)
+        public IActionResult Delete(int medicineId)
         {
-            return View();
+
+            mDoctorManager.DeleteMedicine(new MedicineDto { Id = medicineId });
+
+            return RedirectToAction("Index", new
+            {
+                doctorId = int.Parse(TempData["DoctorId"].ToString()),
+                prescriptionId = int.Parse(TempData["PrescriptionId"].ToString())
+            });
         }
     }
 }
